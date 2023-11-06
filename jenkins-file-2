@@ -1,30 +1,29 @@
-pipeline{
-    agent {label 'slave-node'}
-
-    stages{
-        stage('checkout_scm'){
-            steps{
+pipeline {
+    agent { label 'slave-node' }
+    stages {
+        stage('checkout_scm') {
+            steps {
                 checkout scm
             }
         }
-        stage('docker image build'){
-            steps{
+        stage('docker image build') {
+            steps {
                 sh 'docker build -t shreeshail007/shree_private:version1.0 .'
             }
         }
-   stage('login to dockerhub') {
-            steps{
-script{
-withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerpwd')]) {
-sh "docker login -u shreeshail007 -p \$(dockerpwd)"
-}         
+        stage('login to dockerhub') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerpwd')]) {
+                        sh "docker login -u shreeshail007 -p \$(dockerpwd)"
+                    }
+                }
+            }
         }
-        stage('docker image push'){
-steps{ 
-      sh 'docker push shreeshail007/shree_private:version1.0' 
+        stage('docker image push') {
+            steps {
+                sh 'docker push shreeshail007/shree_private:version1.0'
+            }
         }
-}
     }
-    }
-}
 }
