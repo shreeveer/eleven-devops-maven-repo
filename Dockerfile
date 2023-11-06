@@ -1,3 +1,3 @@
 FROM tomee
-COPY /var/lib/jenkins/workspace/Artifact_Nexus/target/maven-web-application.war /usr/local/tomee/webapps/
+COPY /var/lib/jenkins/workspace/target/maven-web-application.war /usr/local/tomee/webapps/
 EXPOSE 8080
