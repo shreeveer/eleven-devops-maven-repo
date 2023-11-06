@@ -1,5 +1,6 @@
 pipeline{
     agent {label 'slave-node'}
+DOCKERHUB_CREDENTIALS = credentials('shreeshail007-docker-hub')
     
     stages{
         stage('checkout_scm'){
@@ -12,14 +13,13 @@ pipeline{
                 sh 'docker build -t shreeshail007/shree_private:version1.0 .'
             }
         }
+   stage('login to dockerhub') {
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
         stage('docker push'){
-steps{
-
-            withCredentials([string(credentialsId: 'dockerpas', variable: 'dockerpas')]) {
-     
-
-     sh 'docker login -u shreeshail007 -p ${dockerpas}'
-      
+steps{ 
       sh 'docker push shreeshail007/shree_private:version1.0' 
         }
 }
