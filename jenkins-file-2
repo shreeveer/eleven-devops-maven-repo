@@ -19,7 +19,7 @@ withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerpwd')]) {
 sh "docker login -u shreeshail007 -p \$(dockerpwd)"
 }         
         }
-        stage('docker push'){
+        stage('docker image push'){
 steps{ 
       sh 'docker push shreeshail007/shree_private:version1.0' 
         }
