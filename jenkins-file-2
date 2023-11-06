@@ -13,6 +13,8 @@ pipeline{
             }
         }
         stage('docker push'){
+steps{
+
             withCredentials([string(credentialsId: 'dockerpas', variable: 'dockerpas')]) {
      
 
@@ -20,6 +22,7 @@ pipeline{
       
       sh 'docker push shreeshail007/shree_private:version1.0' 
         }
+}
     }
     }
 
