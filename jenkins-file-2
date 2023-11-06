@@ -1,0 +1,26 @@
+pipeline{
+    agent {agent 'slave-node'}
+    
+    stages{
+        stage('checkout_scm'){
+            steps{
+                checkout scm
+            }
+        }
+        stage('docker image build'){
+            steps{
+                sh 'docker build -t shreeshail007/shree_private:version1.0 .'
+            }
+        }
+        stage('docker push'){
+            withCredentials([string(credentialsId: 'dockerpas', variable: 'dockerpas')]) {
+     
+
+     sh 'docker login -u shreeshail007 -p ${dockerpas}'
+      
+      sh 'docker push shreeshail007/shree_private:version1.0' 
+        }
+    }
+    }
+
+}
