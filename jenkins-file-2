@@ -20,7 +20,7 @@ pipeline {
                 }
             }
         }
-        stage('docker image push') {
+        stage('docker image push ') {
             steps {
                 sh 'docker push shreeshail007/shree_private:version1.0'
             }
